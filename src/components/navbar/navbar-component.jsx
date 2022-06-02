@@ -6,7 +6,7 @@ import {
   NavbarLogo,
   NavbarPayload,
   PayloadText,
-} from './navbar-styles'
+} from './navbar-elements'
 
 const Navbar = () => {
   return (
