@@ -1,0 +1,129 @@
+.display-products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 10px;
+  grid-row-gap: 0px;
+  margin: 0 auto;
+  max-width: 608px;
+  width: 100%;
+  /* height: 1008px; */
+  padding: 0 20px;
+}
+
+.product-card {
+  background-color: #fff;
+  /* border-radius: 4px; */
+  /* box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); */
+  /* display: flex; */
+  /* flex-direction: column; */
+  margin: 0 0 20px;
+  padding: 20px;
+  max-width: 225px;
+  width: 100%;
+  height: 225px;
+}
+
+.item-price {
+  color: #1ea4ce;
+  font-weight: bold;
+}
+
+.img-div {
+  background-color: #c4c4c4 !important;
+  max-width: 92px;
+  width: 100%;
+  height: 92px;
+  max-height: 100%;
+  margin: auto;
+}
+
+/* .card-list {
+  width: 40%;
+  height: auto;
+  background-color: bisque;
+  margin: auto;
+  border: 2px solid black;
+} */
+
+.card-container {
+  /* padding: 20px; */
+  overflow: hidden;
+}
+
+.card-button-div {
+  display: flex;
+  justify-content: center;
+  /* padding: 3px; */
+  background-image: initial;
+}
+
+.card-buy-button {
+  background-color: rgb(152, 192, 217);
+  border: none;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 90%;
+  max-width: 100%;
+}
+
+.card-buy-button:hover {
+  background-color: rgb(61, 90, 128);
+  color: white;
+}
+
+.navigationButtons {
+  /* width: 80%;
+    height: 40px; */
+  /* justify-content: space-between; */
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 30px;
+  margin-left: auto;
+  text-decoration: none;
+}
+
+.header {
+}
+
+/* display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  width: 100%;
+  height: auto;
+  background-color: bisque;
+  border: 2px solid black; */
+
+.navigationButtons a {
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  color: red;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.navigationButtons a:hover {
+  color: white;
+  background-color: red;
+}
+
+.navigationActive a {
+  color: white;
+  background-color: red;
+}
+
+.navigationDisabled a {
+  color: rgb(127, 63, 63);
+  /* background-color: grey; */
+}

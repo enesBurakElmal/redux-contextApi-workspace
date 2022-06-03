@@ -6,8 +6,8 @@ import { LeftContent } from '../sorting-component/sorting-elements'
 const TagsComponent = () => {
   return (
     <div>
+      <h4>Tags</h4>
       <LeftContent>
-        <h4>Tags</h4>
         <SearchInput type="text" name="name" placeholder="Search Tag" />
         <label>
           <input type="checkbox" /> My Value

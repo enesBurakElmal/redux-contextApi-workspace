@@ -19,6 +19,10 @@ const SortingComponent = () => {
     setFavorite('newToOld')
   }
 
+  const handleOldToNew = () => {
+    setFavorite('oldToNew')
+  }
+
   const RadioButton = ({ label, value, onChange }) => {
     return (
       <RadioContent>
@@ -49,11 +53,11 @@ const SortingComponent = () => {
           value={favorite === 'newToOld'}
           onChange={handleNewToOld}
         />
-        {/* <RadioButton
-        label="Old to new"
-        value={favorite === 'dog'}
-        onChange={handleDogChange}
-      /> */}
+        <RadioButton
+          label="Old to new"
+          value={favorite === 'oldToNew'}
+          onChange={handleOldToNew}
+        />
         {/* <RadioButton label="Old to new" value={value} onChange={handleChange} /> */}
       </LeftContent>
     </div>

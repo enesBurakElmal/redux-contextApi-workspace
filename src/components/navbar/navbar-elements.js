@@ -1,37 +1,45 @@
 import styled from 'styled-components'
 
-export const NavbarContainer = styled.nav`
-  position: absolute;
-  height: 76.64px;
-  left: 0%;
-  right: 0%;
-  top: 0%;
-  bottom: 94.83%;
-  background: #1ea4ce;
+export const NavbarTag = styled.nav`
+  max-width: 100%;
+  width: 100%;
+  // height: 76.64px;
+  max-height: 100%;
+  background-color: #1ea4ce;
   display: flex;
-  flex-direction: row;
-  aling-items: center;
+  align-items: center;
   justify-content: center;
 `
-export const NavbarLogo = styled.h1`
-  position: absolute;
-  //   top: 0%;
+
+export const NavbarContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  max-width: 1440px;
+  width: 100%;
+`
+export const LogoDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+`
+
+export const NavbarLogo = styled.img`
+  height: 40.32px;
+  margin-left: auto;
 `
 
 export const NavbarPayload = styled.div`
   max-width: 129px;
   width: 100%;
-  max-height: 76.64px;
-  height: 100%;
-  position: absolute;
-  left: 83.82%;
-  right: 7.22%;
-  top: 0%;
-  bottom: 94.83%;
-  display: flex;s
-  text-align: center;
+  max-height: 100%;
+  height: 66.81px;
+  display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: auto;
   background-color: #147594;
 `
 export const PayloadText = styled.p`
