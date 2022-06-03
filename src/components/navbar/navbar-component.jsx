@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useCallback } from 'react'
+import { useState } from 'react'
 
 import Logo from './../../assets/Logo.svg'
+
+import PayloadComponent from '../payload-component/payload-component'
 
 import {
   NavbarTag,
@@ -10,15 +13,21 @@ import {
   PayloadText,
 } from './navbar-elements'
 
-const Navbar = ({ price, setPrice }) => {
-  console.log(price)
+// console.log(parsedData)
+
+const Navbar = ({ totalPrice, cartItems }) => {
+  const [price, setPrice] = useState(0)
+  // console.log(totalPrice, cartItems)
+
+  const navbarPrice = JSON.parse(localStorage.getItem('cart2'))
+
   return (
     <NavbarTag>
       <NavbarContainer>
         <NavbarLogo src={Logo} alt="logo" />
         <NavbarPayload>
-          <PayloadText>
-            &#174; &#8378; {price} {setPrice}
+          <PayloadText value={totalPrice}>
+            &#174; &#8378; {navbarPrice}
           </PayloadText>
         </NavbarPayload>
       </NavbarContainer>
@@ -27,14 +36,3 @@ const Navbar = ({ price, setPrice }) => {
 }
 
 export default Navbar
-// return (
-//   <NavbarTag>
-//     <NavbarContainer>
-//       <NavbarLogo src={Logo} alt="Logo" />
-//       <NavbarPayload>
-//         <PayloadText>&#174; &#8378; 13,97</PayloadText>
-//       </NavbarPayload>
-//     </NavbarContainer>
-//   </NavbarTag>
-// )
-// }
