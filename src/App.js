@@ -1,5 +1,6 @@
 import React from 'react'
 import './App.css'
+import { useDispatch, useSelector } from 'react-redux'
 
 import Navbar from './components/navbar/navbar-component'
 
