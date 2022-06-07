@@ -1,29 +1,20 @@
-import React, { useEffect, useRef } from 'react'
-import { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { PayloadContainer } from './payload-styles'
+
 import { useDispatch, useSelector } from 'react-redux'
-import { addToCart } from '../../store/project/case.actions'
+import { addItemToCart } from '../../store/cart/cart.action'
+import { selectCartItems } from '../../store/cart/cart.selector'
 
 import CartItem from '../card-item/card-item.component'
 
-const PayloadComponent = () => {
+const PayloadComponent = ({ cartItem }) => {
   const [cartItems, setCartItems] = useState([])
   const [totalPrice, setTotalPrice] = useState(0)
 
-  useEffect(() => {
-    const cartData = JSON.parse(localStorage.getItem('cart'))
-    setCartItems(cartData)
-  }, [])
+  const dispatch = useDispatch()
+  const cartItemsInfo = useSelector(selectCartItems)
 
-  setTimeout(
-    () => {
-      const cartData = JSON.parse(localStorage.getItem('cart'))
-      setCartItems(cartData)
-      setTotalPrice(cartData.reduce((total, item) => total + item.price, 0))
-    },
-    [],
-    1000
-  )
+  const addItemHandler = () => dispatch(addItemToCart(cartItemsInfo, cartItem))
 
   return (
     <PayloadContainer>
@@ -33,10 +24,27 @@ const PayloadComponent = () => {
           <div>{item.price}</div>
         </div>
       ))}
-      <button>2010-11 kupasi</button>
+      <button onClick={addItemHandler}>2010-11 kupasi</button>
     </PayloadContainer>
   )
 }
+
+// useEffect(() => {
+//   const cartData = JSON.parse(localStorage.getItem('cart'))
+//   setCartItems(cartData)
+// }, [])
+
+// setTimeout(
+//   () => {
+//     const cartData = JSON.parse(localStorage.getItem('cart'))
+//     setCartItems(cartData)
+//     setTotalPrice(cartData.reduce((total, item) => total + item.price, 0))
+//   },
+//   [],
+//   1000
+// )
+
+// const categoriesMap = useSelector(selectCategoriesMap)
 
 // class PayloadComponent extends React.Component {
 //   constructor(props) {

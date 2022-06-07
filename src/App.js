@@ -26,6 +26,9 @@ class App extends React.Component {
     this.handlePriceChange = this.handlePriceChange.bind(this)
   }
 
+  // const dispatch = useDispatch()
+  // const todos = useSelector((state) => state.todos)
+
   handlePriceChange = (event) => {
     this.setState({ price: this.props.price })
   }
