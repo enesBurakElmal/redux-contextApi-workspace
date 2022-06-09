@@ -1,8 +1,5 @@
 import React from 'react'
 import './App.css'
-import { useDispatch, useSelector } from 'react-redux'
-
-import { CartProvider } from './contexts/cart-item/cart-item.context'
 
 import Navbar from './components/navbar/navbar-component'
 
@@ -39,21 +36,19 @@ class App extends React.Component {
     return (
       <div>
         <Navbar />
-        <CartProvider>
-          <AppContainer>
-            <LeftColumn>
-              <SortingComponent />
-              <BrandsComponent />
-              <TagsComponent />
-            </LeftColumn>
-            <MiddleColumn>
-              <EmployeesIndex />
-            </MiddleColumn>
-            <RightColumn>
-              <PayloadComponent />
-            </RightColumn>
-          </AppContainer>
-        </CartProvider>
+        <AppContainer>
+          <LeftColumn>
+            <SortingComponent />
+            <BrandsComponent />
+            <TagsComponent />
+          </LeftColumn>
+          <MiddleColumn>
+            <EmployeesIndex cartitems={this.props.cartitems} />
+          </MiddleColumn>
+          <RightColumn>
+            <PayloadComponent />
+          </RightColumn>
+        </AppContainer>
       </div>
     )
   }

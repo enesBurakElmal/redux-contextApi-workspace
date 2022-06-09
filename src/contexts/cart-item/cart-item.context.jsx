@@ -1,16 +1,7 @@
-import { createContext, useState, useEffect, useContext } from 'react'
+import { createContext, useState, useEffect } from 'react'
 import axios from 'axios'
 
 const apiUrl = 'http://localhost:3004/items'
-
-export function useAPI() {
-  const context = useContext(CartContext)
-
-  if (context === undefined) {
-    throw new Error('Context must be used within a Provider')
-  }
-  return context
-}
 
 const addCartItem = (cartItems, productToAdd) => {
   const existingCartItem = cartItems.find(
@@ -27,58 +18,84 @@ const addCartItem = (cartItems, productToAdd) => {
 
   return [...cartItems, { ...productToAdd, quantity: 1 }]
 }
+const removeCartItem = (cartItems, cartItemToRemove) => {
+  const existingCartItem = cartItems.find(
+    (cartItem) => cartItem.id === cartItemToRemove.id
+  )
+
+  if (existingCartItem.quantity === 1) {
+    return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id)
+  }
+
+  return cartItems.map((cartItem) =>
+    cartItem.id === cartItemToRemove.id
+      ? { ...cartItem, quantity: cartItem.quantity - 1 }
+      : cartItem
+  )
+}
+
+const clearCartItem = (cartItems, cartItemToClear) =>
+  cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id)
 
 export const CartContext = createContext({
-  dataList: [],
-  //   cartItems: [],
+  isCartOpen: false,
+  setIsCartOpen: () => {},
+  cartItems: [],
   addItemToCart: () => {},
-  //   removeItemFromCart: () => {},
-  //   clearItemFromCart: () => {},
+  removeItemFromCart: () => {},
+  clearItemFromCart: () => {},
   cartCount: 0,
   cartTotal: 0,
 })
 
 export const CartProvider = ({ children }) => {
-  const [dataList, setDataList] = useState([])
-  //   const [cartItems, setCartItems] = useState([])
+  const [cartItems, setCartItems] = useState([])
   const [cartCount, setCartCount] = useState(0)
   const [cartTotal, setCartTotal] = useState(0)
 
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get(apiUrl)
-      setDataList(response.data)
+      const { data } = await axios.get(apiUrl)
+      setCartItems(data)
     }
     fetchData()
   }, [])
 
   useEffect(() => {
-    const newCartCount = dataList.reduce(
+    const newCartCount = cartItems.reduce(
       (total, cartItem) => total + cartItem.quantity,
       0
     )
     setCartCount(newCartCount)
-  }, [dataList])
+  }, [cartItems])
 
   useEffect(() => {
-    const newCartTotal = dataList.reduce(
+    const newCartTotal = cartItems.reduce(
       (total, cartItem) => total + cartItem.quantity * cartItem.price,
       0
     )
     setCartTotal(newCartTotal)
-  }, [dataList])
+  }, [cartItems])
 
   const addItemToCart = (productToAdd) => {
-    setDataList(addCartItem(dataList, productToAdd))
+    setCartItems(addCartItem(cartItems, productToAdd))
+  }
+
+  const removeItemToCart = (cartItemToRemove) => {
+    setCartItems(removeCartItem(cartItems, cartItemToRemove))
+  }
+
+  const clearItemFromCart = (cartItemToClear) => {
+    setCartItems(clearCartItem(cartItems, cartItemToClear))
   }
 
   const value = {
     addItemToCart,
-    // cartItems,
+    removeItemToCart,
+    clearItemFromCart,
+    cartItems,
     cartCount,
     cartTotal,
-    dataList,
-    useAPI,
   }
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>

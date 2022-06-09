@@ -1,15 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { Provider } from 'react-redux'
-import { configureStore } from '@reduxjs/toolkit'
-import { createStore, applyMiddleware } from 'redux'
-import rootReducer from './store/root-reducer'
+
 import './index.css'
+
+import { CartProvider } from './contexts/cart-item/cart-item.context'
+import { CategoriesProvider } from './contexts/products/products.context'
+
 import App from './App'
 
 // import { store } from '../src/store/store'
-
-const store = createStore(rootReducer, applyMiddleware())
 
 // console.log(store)
 
@@ -18,8 +17,10 @@ const store = createStore(rootReducer, applyMiddleware())
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <CategoriesProvider>
+      <CartProvider>
+        <App />
+      </CartProvider>
+    </CategoriesProvider>
   </React.StrictMode>
 )
