@@ -2,6 +2,8 @@ import React from 'react'
 import './App.css'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { CartProvider } from './contexts/cart-item/cart-item.context'
+
 import Navbar from './components/navbar/navbar-component'
 
 //Here is Left Content
@@ -37,19 +39,21 @@ class App extends React.Component {
     return (
       <div>
         <Navbar />
-        <AppContainer>
-          <LeftColumn>
-            <SortingComponent />
-            <BrandsComponent />
-            <TagsComponent />
-          </LeftColumn>
-          <MiddleColumn>
-            <EmployeesIndex />
-          </MiddleColumn>
-          <RightColumn>
-            <PayloadComponent />
-          </RightColumn>
-        </AppContainer>
+        <CartProvider>
+          <AppContainer>
+            <LeftColumn>
+              <SortingComponent />
+              <BrandsComponent />
+              <TagsComponent />
+            </LeftColumn>
+            <MiddleColumn>
+              <EmployeesIndex />
+            </MiddleColumn>
+            <RightColumn>
+              <PayloadComponent />
+            </RightColumn>
+          </AppContainer>
+        </CartProvider>
       </div>
     )
   }

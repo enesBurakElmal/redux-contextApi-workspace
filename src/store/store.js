@@ -1,5 +1,4 @@
-import { compose, applyMiddleware } from 'redux'
-import { configureStore } from '@reduxjs/toolkit'
+import { compose, createStore, applyMiddleware } from 'redux'
 
 import { rootReducer } from './root-reducer'
 
@@ -21,8 +20,4 @@ const middleWares = [loggerMiddleware]
 
 const composedEnhancers = compose(applyMiddleware(...middleWares))
 
-export const store = configureStore({
-  rootReducer: rootReducer,
-  undefined: undefined,
-  composedEnhancers: composedEnhancers,
-})
+export const store = createStore(rootReducer, undefined, composedEnhancers)

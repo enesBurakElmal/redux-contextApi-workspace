@@ -2,15 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { Provider } from 'react-redux'
 import { configureStore } from '@reduxjs/toolkit'
+import { createStore, applyMiddleware } from 'redux'
 import rootReducer from './store/root-reducer'
 import './index.css'
 import App from './App'
 
 // import { store } from '../src/store/store'
 
-const store = configureStore({
-  reducer: rootReducer,
-})
+const store = createStore(rootReducer, applyMiddleware())
 
 // console.log(store)
 

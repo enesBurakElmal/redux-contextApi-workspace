@@ -7,23 +7,42 @@ import { selectCartItems } from '../../store/cart/cart.selector'
 
 import CartItem from '../card-item/card-item.component'
 
-const PayloadComponent = ({ cartItem }) => {
-  const [cartItems, setCartItems] = useState([])
-  const [totalPrice, setTotalPrice] = useState(0)
+const PayloadComponent = () => {
+  const cartItem = useSelector(selectCartItems)
 
   const dispatch = useDispatch()
-  const cartItemsInfo = useSelector(selectCartItems)
+  const cartItemss = useSelector(selectCartItems)
 
-  const addItemHandler = () => dispatch(addItemToCart(cartItemsInfo, cartItem))
+  const addItemHandler = () =>
+    dispatch(
+      addItemToCart(
+        cartItem.map((item) => {
+          return {
+            ...item,
+            quantity: 1,
 
+            price: item.price * item.quantity,
+          }
+        })
+      )
+    )
   return (
     <PayloadContainer>
-      {cartItems?.map((item, index) => (
-        <div key={index}>
-          <CartItem cartItem={item} />
-          <div>{item.price}</div>
-        </div>
-      ))}
+      <div>
+        {cartItem.length ? (
+          cartItem.map((item, index) => (
+            <p key={index} cartitem={item}>
+              SA {item.price} {item.name} {item.quantity} {item.price}
+            </p>
+          ))
+        ) : (
+          // <div key={index}>
+          //   <CartItem cartItem={item} />
+          //   <div>{item.price}</div>
+          // </div>
+          <p>you cart is empty</p>
+        )}
+      </div>
       <button onClick={addItemHandler}>2010-11 kupasi</button>
     </PayloadContainer>
   )
