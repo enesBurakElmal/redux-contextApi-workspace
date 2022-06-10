@@ -1,7 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useRef,
+} from 'react'
+import { useParams } from 'react-router-dom'
 import ReactPaginate from 'react-paginate'
+import axios from 'axios'
 
-import { CartContext } from '../../contexts/cart-item/cart-item.context'
+import { CartContext } from '../../contexts/cart-item.context'
 
 import './test-style.css'
 
@@ -12,24 +20,31 @@ export const displayProducts = (products, setProducts, setPageCount, page) => {
   setPageCount(Math.ceil(products.length / 16))
 }
 
+// products bak
 const EmployeesIndex = ({ cartItem }) => {
-  const { cartItems, cartTotal } = useContext(CartContext)
-  const [products, setProducts] = useState([])
+  const { cartItems, cartTotal, addItemToCart } = useContext(CartContext)
+  const [productsz, setProductsz] = useState([])
   const [pageCount, setPageCount] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
 
-  useEffect(() => {
-    displayProducts(cartItems, setProducts, setPageCount, currentPage)
-  }, [cartItems, currentPage])
-
-  const { clearItemFromCart, addItemToCart, removeItemToCart } =
-    useContext(CartContext)
-
+  // const { addItemToCart } = usseContext(CartContext)
   const addProductToCart = () => addItemToCart(cartItem)
 
-  const clearItemHandler = () => clearItemFromCart(cartItem)
-  const addItemHandler = () => addItemToCart(cartItem)
-  const removeItemHandler = () => removeItemToCart(cartItem)
+  // useEffect(() => {
+  //   displayProducts(cartItems, setProductsz, setPageCount, currentPage)
+  // }, [cartItems, currentPage])
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3004/items')
+      .then((res) => {
+        displayProducts(res.data, setProductsz, setPageCount, currentPage)
+        // console.log(displayEmployees)
+      })
+      .catch((err) => {
+        // console.log(err)
+      })
+  }, [currentPage])
 
   const handlePageClick = (data) => {
     const selectedPage = data.selected + 1
@@ -39,11 +54,11 @@ const EmployeesIndex = ({ cartItem }) => {
   return (
     <div>
       <div className="display-products">
-        {products.map((cartItems, index) => (
+        {productsz.map((cartitem, index) => (
           <div className="product-card" key={index}>
             <div className="img-div" />
-            <p className="item-price">₺ {cartItems.price}</p>
-            <h4>{cartItems.name}</h4>
+            <p className="item-price">₺ {cartitem.price}</p>
+            <h4>{cartitem.name}</h4>
             <button onClick={addProductToCart}> Add to Cart</button>
           </div>
         ))}

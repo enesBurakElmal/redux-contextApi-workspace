@@ -7,18 +7,20 @@ export const CategoriesContext = createContext({
 export const CategoriesProvider = ({ children }) => {
   const [categoriesMap, setCategoriesMap] = useState({})
 
+  console.log(categoriesMap)
+
   useEffect(() => {
     const getCategoriesMap = () => {
-      const categoriesMap = {}
-      categoriesMap['testCategories'] = 'all'
-
+      const categoriesMap = (categories) => {
+        return categories.reduce((acc, category) => {
+          acc[category.id] = category
+          return acc
+        }, {})
+      }
       return categoriesMap
     }
-
     setCategoriesMap(getCategoriesMap())
   }, [])
-
-  console.log('categoriesMap', categoriesMap)
 
   const value = { categoriesMap }
   return (

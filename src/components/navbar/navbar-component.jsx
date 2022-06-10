@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 import Logo from './../../assets/Logo.svg'
 
-import PayloadComponent from '../payload-component/payload-component'
+import Checkout from '../checkout/checkout.component'
 
 import {
   NavbarTag,
