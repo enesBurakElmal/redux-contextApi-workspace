@@ -20,15 +20,17 @@ export const displayProducts = (products, setProducts, setPageCount, page) => {
   setPageCount(Math.ceil(products.length / 16))
 }
 
-// products bak
 const EmployeesIndex = ({ cartItem }) => {
+  // const { name, imageUrl, price, quantity } = cartItem //bunlarin cekilmesi gerek
+
   const { cartItems, cartTotal, addItemToCart } = useContext(CartContext)
   const [productsz, setProductsz] = useState([])
   const [pageCount, setPageCount] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
 
-  // const { addItemToCart } = usseContext(CartContext)
   const addProductToCart = () => addItemToCart(cartItem)
+
+  console.log(cartItem, 'emp-index')
 
   // useEffect(() => {
   //   displayProducts(cartItems, setProductsz, setPageCount, currentPage)
@@ -54,11 +56,11 @@ const EmployeesIndex = ({ cartItem }) => {
   return (
     <div>
       <div className="display-products">
-        {productsz.map((cartitem, index) => (
+        {productsz.map((cartItem, index) => (
           <div className="product-card" key={index}>
             <div className="img-div" />
-            <p className="item-price">₺ {cartitem.price}</p>
-            <h4>{cartitem.name}</h4>
+            <p className="item-price">₺ {cartItem.price}</p>
+            <h4>{cartItem.name}</h4>
             <button onClick={addProductToCart}> Add to Cart</button>
           </div>
         ))}

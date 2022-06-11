@@ -14,7 +14,7 @@ const PayloadComponent = () => {
         <CartItem key={index} cartItem={item} />
       ))}
 
-      <button type="button">2010-11 kupasi ${cartTotal}</button>
+      <button type="button">2010-11 kupasi $</button>
     </PayloadContainer>
   )
 }

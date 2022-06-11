@@ -14,6 +14,7 @@ const addCartItem = (cartItems, productToAdd) => {
         : cartItem
     )
   }
+
   return [...cartItems, { ...productToAdd, quantity: 1 }]
 }
 
@@ -28,7 +29,7 @@ export const CartContext = createContext({
 })
 
 export const CartProvider = ({ children }) => {
-  const [data, setData] = useState([])
+  // const [data, setData] = useState([])
   const [isCartOpen, setIsCartOpen] = useState(false)
   const [cartItems, setCartItems] = useState([])
   const [cartCount, setCartCount] = useState(0)
@@ -36,13 +37,13 @@ export const CartProvider = ({ children }) => {
 
   // console.log(data)
 
-  useEffect(() => {
-    async function fetchData() {
-      const { data } = await axios.get(apiUrl)
-      setData(data)
-    }
-    fetchData()
-  }, [])
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const { data } = await axios.get(apiUrl)
+  //     setCartItems(data)
+  //   }
+  //   fetchData()
+  // }, [])
 
   useEffect(() => {
     const newCartTotal = cartItems.reduce(
@@ -58,11 +59,10 @@ export const CartProvider = ({ children }) => {
 
   const value = {
     addItemToCart,
-
     cartItems,
     cartCount,
     cartTotal,
-    data,
+    // data,
   }
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
