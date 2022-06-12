@@ -4,12 +4,13 @@ import axios from 'axios'
 const apiUrl = 'http://localhost:3004/items'
 
 const addCartItem = (cartItems, productToAdd) => {
+  console.log(cartItems, productToAdd)
   const existingCartItem = cartItems.find(
-    (cartItem) => cartItem.id === productToAdd.id
+    (cartItem) => cartItem.added === productToAdd.added
   )
   if (existingCartItem) {
     return cartItems.map((cartItem) =>
-      cartItem.id === productToAdd.id
+      cartItem.added === productToAdd.added
         ? { ...cartItem, quantity: cartItem.quantity + 1 }
         : cartItem
     )
@@ -18,14 +19,37 @@ const addCartItem = (cartItems, productToAdd) => {
   return [...cartItems, { ...productToAdd, quantity: 1 }]
 }
 
+const removeCartItem = (cartItems, cartItemToRemove) => {
+  // find the cart item to remove
+  const existingCartItem = cartItems.find(
+    (cartItem) => cartItem.id === cartItemToRemove.id
+  )
+
+  // check if quantity is equal to 1, if it is remove that item from the cart
+  if (existingCartItem.quantity === 1) {
+    return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id)
+  }
+
+  // return back cartitems with matching cart item with reduced quantity
+  return cartItems.map((cartItem) =>
+    cartItem.id === cartItemToRemove.id
+      ? { ...cartItem, quantity: cartItem.quantity - 1 }
+      : cartItem
+  )
+}
+
+const clearCartItem = (cartItems, cartItemToClear) =>
+  cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id)
+
 export const CartContext = createContext({
   isCartOpen: false,
   setIsCartOpen: () => {},
   cartItems: [],
   addItemToCart: () => {},
+  removeItemFromCart: () => {},
+  clearItemFromCart: () => {},
   cartCount: 0,
   cartTotal: 0,
-  data: [],
 })
 
 export const CartProvider = ({ children }) => {
@@ -36,14 +60,6 @@ export const CartProvider = ({ children }) => {
   const [cartTotal, setCartTotal] = useState(0)
 
   // console.log(data)
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const { data } = await axios.get(apiUrl)
-  //     setCartItems(data)
-  //   }
-  //   fetchData()
-  // }, [])
 
   useEffect(() => {
     const newCartTotal = cartItems.reduce(
@@ -57,12 +73,22 @@ export const CartProvider = ({ children }) => {
     setCartItems(addCartItem(cartItems, productToAdd))
   }
 
+  const removeItemToCart = (cartItemToRemove) => {
+    setCartItems(removeCartItem(cartItems, cartItemToRemove))
+  }
+
+  const clearItemFromCart = (cartItemToClear) => {
+    setCartItems(clearCartItem(cartItems, cartItemToClear))
+  }
+
   const value = {
+    isCartOpen,
+    setIsCartOpen,
     addItemToCart,
+    removeItemToCart,
+    clearItemFromCart,
     cartItems,
     cartCount,
-    cartTotal,
-    // data,
   }
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>

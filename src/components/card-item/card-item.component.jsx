@@ -1,13 +1,15 @@
 import React from 'react'
 
-const CartItem = ({ cartItem }) => {
-  const { name, quantity } = cartItem
-  console.log(name, quantity)
+const CartItem = ({ cartItem, cartCount }) => {
+  const { name, quantity, price } = cartItem
+
+  console.log(cartItem, 'cartItem')
   return (
-    <div>
+    <>
       <h2>{name}</h2>
-      <span>{quantity}</span>
-    </div>
+      <span>{price}</span>
+      <p>{quantity}</p>
+    </>
   )
 }
 

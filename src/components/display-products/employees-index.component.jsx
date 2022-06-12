@@ -8,6 +8,7 @@ import React, {
 import { useParams } from 'react-router-dom'
 import ReactPaginate from 'react-paginate'
 import axios from 'axios'
+import CartItem from '../card-item/card-item.component'
 
 import { CartContext } from '../../contexts/cart-item.context'
 
@@ -22,29 +23,21 @@ export const displayProducts = (products, setProducts, setPageCount, page) => {
 
 const EmployeesIndex = ({ cartItem }) => {
   // const { name, imageUrl, price, quantity } = cartItem //bunlarin cekilmesi gerek
+  // const { name, price } = cartItem
 
-  const { cartItems, cartTotal, addItemToCart } = useContext(CartContext)
+  const { cartItems, addItemToCart } = useContext(CartContext)
   const [productsz, setProductsz] = useState([])
   const [pageCount, setPageCount] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
-
-  const addProductToCart = () => addItemToCart(cartItem)
-
-  console.log(cartItem, 'emp-index')
-
-  // useEffect(() => {
-  //   displayProducts(cartItems, setProductsz, setPageCount, currentPage)
-  // }, [cartItems, currentPage])
 
   useEffect(() => {
     axios
       .get('http://localhost:3004/items')
       .then((res) => {
         displayProducts(res.data, setProductsz, setPageCount, currentPage)
-        // console.log(displayEmployees)
       })
       .catch((err) => {
-        // console.log(err)
+        console.log(err, 'index component')
       })
   }, [currentPage])
 
@@ -56,14 +49,18 @@ const EmployeesIndex = ({ cartItem }) => {
   return (
     <div>
       <div className="display-products">
-        {productsz.map((cartItem, index) => (
-          <div className="product-card" key={index}>
-            <div className="img-div" />
-            <p className="item-price">₺ {cartItem.price}</p>
-            <h4>{cartItem.name}</h4>
-            <button onClick={addProductToCart}> Add to Cart</button>
-          </div>
-        ))}
+        {productsz.map((cartItem, index) => {
+          const addProductToCart = () => addItemToCart(cartItem)
+
+          return (
+            <div className="product-card" key={index}>
+              <div className="img-div" />
+              <p className="item-price">{cartItem.price}</p>
+              <h4>{cartItem.name}</h4>
+              <button onClick={addProductToCart}>Add to Cart</button>
+            </div>
+          )
+        })}
       </div>
 
       <ReactPaginate

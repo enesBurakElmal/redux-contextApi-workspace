@@ -46,7 +46,7 @@ class App extends React.Component {
             <EmployeesIndex />
           </MiddleColumn>
           <RightColumn>
-            <PayloadComponent />
+            <PayloadComponent cartItem={this.props.cartItem} />
           </RightColumn>
         </AppContainer>
       </div>

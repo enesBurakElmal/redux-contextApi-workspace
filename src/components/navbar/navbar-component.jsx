@@ -3,7 +3,12 @@ import { useState } from 'react'
 
 import Logo from './../../assets/Logo.svg'
 
+import { useContext } from 'react'
+import { CartContext } from '../../contexts/cart-item.context'
+
 import Checkout from '../checkout/checkout.component'
+
+import styles from './navbar-component.module.scss'
 
 import {
   NavbarTag,
@@ -15,19 +20,17 @@ import {
 
 // console.log(parsedData)
 
-const Navbar = ({ totalPrice, cartItems }) => {
-  const [price, setPrice] = useState(0)
-  // console.log(totalPrice, cartItems)
-
-  const navbarPrice = JSON.parse(localStorage.getItem('cart2'))
+const Navbar = ({ totalPrice }) => {
+  const { cartTotal } = useContext(CartContext)
+  console.log(styles)
 
   return (
     <NavbarTag>
       <NavbarContainer>
-        <NavbarLogo src={Logo} alt="logo" />
+        <NavbarLogo src={Logo} alt="logo" className={styles.enes} />
         <NavbarPayload>
-          <PayloadText value={totalPrice}>
-            &#174; &#8378; {navbarPrice}
+          <PayloadText value={cartTotal}>
+            &#174; &#8378; {cartTotal}
           </PayloadText>
         </NavbarPayload>
       </NavbarContainer>
