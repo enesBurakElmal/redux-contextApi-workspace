@@ -1,6 +1,7 @@
 body {
   margin: 0;
   background-color: #e5e5e5;
+  text-overflow: ellipsis;
 }
 body::-webkit-scrollbar-track {
   box-shadow: inset 0 0 15x rgba(0, 0, 0, 15);

@@ -3,8 +3,8 @@
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
   grid-column-gap: 10px;
-  grid-row-gap: 0px;
-  margin: 0 auto;
+  /* grid-row-gap: 10px; */
+  /* margin: auto; */
   max-width: 608px;
   width: 100%;
   /* height: 1008px; */
@@ -21,7 +21,7 @@
   padding: 20px;
   max-width: 225px;
   width: 100%;
-  height: 225px;
+  /* height: 225px; */
 }
 
 .item-price {
@@ -59,6 +59,7 @@
 }
 
 .card-buy-button {
+  max-width: 100%;
   background-color: rgb(152, 192, 217);
   border: none;
   color: white;
@@ -69,8 +70,7 @@
   font-size: 16px;
   cursor: pointer;
   font-weight: bold;
-  width: 90%;
-  max-width: 100%;
+  /* width: 90%; */
 }
 
 .card-buy-button:hover {
@@ -126,4 +126,20 @@
 .navigationDisabled a {
   color: rgb(127, 63, 63);
   /* background-color: grey; */
+}
+
+.buy-button {
+  max-width: 124px;
+  width: 100%;
+  background-color: #1ea4ce;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  color: white;
+  border: none;
+}
+
+.add-to-cart-div {
+  margin-top: auto;
 }

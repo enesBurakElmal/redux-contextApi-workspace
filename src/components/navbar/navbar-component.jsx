@@ -22,7 +22,6 @@ import {
 
 const Navbar = ({ totalPrice }) => {
   const { cartTotal } = useContext(CartContext)
-  console.log(styles)
 
   return (
     <NavbarTag>

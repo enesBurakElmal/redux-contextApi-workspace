@@ -7,7 +7,7 @@ import Navbar from './components/navbar/navbar-component'
 import SortingComponent from './components/sorting-component/sorting-component'
 import BrandsComponent from './components/brands-component/brands-component'
 import TagsComponent from './components/tags-component/tags-component'
-import EmployeesIndex from './components/display-products/employees-index.component'
+import EmployeesIndex from './components/display-products/display-products.component'
 import PayloadComponent from './components/checkout/checkout.component'
 
 import {

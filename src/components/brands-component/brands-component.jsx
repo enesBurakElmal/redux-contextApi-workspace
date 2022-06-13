@@ -1,14 +1,20 @@
 import React from 'react'
 
 import { LeftContent } from '../sorting-component/sorting-elements'
-import { SearchInput } from './brand-styles'
+
+import styles from './brands-component.module.scss'
 
 const BrandsComponent = () => {
   return (
     <div>
       <h4>Brands</h4>
       <LeftContent>
-        <SearchInput type="text" name="name" placeholder="Search Brand" />
+        <input
+          className="searchInput"
+          type="text"
+          name="name"
+          placeholder="Search Brand"
+        />
         <label>
           <input type="checkbox" /> My Value
         </label>

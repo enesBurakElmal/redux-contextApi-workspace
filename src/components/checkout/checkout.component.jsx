@@ -1,29 +1,42 @@
 import { useContext, useEffect, useState } from 'react'
-import { PayloadContainer } from './payload-styles'
+
+import { PayloadContainer } from './checkout-styles'
+import styles from './checkout-component.module.scss'
 
 import { CartContext } from '../../contexts/cart-item.context'
 
-import CartItem from '../card-item/card-item.component'
+import CartItem from '../cart-item/cart-item.component'
 
-const PayloadComponent = () => {
-  const { cartItems, cartTotal, cartCount } = useContext(CartContext)
+const PayloadComponent = (payload) => {
+  const {
+    cartItems,
+    cartTotal,
+    addItemToCart,
+    removeItemToCart,
+    clearItemFromCart,
+  } = useContext(CartContext)
 
-  console.log(cartCount)
+  const addProductToCart = () => addItemToCart(payload)
 
   return (
-    <PayloadContainer>
+    <div className={styles.payloadContainer}>
       {cartItems.length ? (
         cartItems.map((item, index) => (
-          <CartItem key={index} cartItem={item} cartCount={cartCount}>
-            <h2>Total: {cartTotal}</h2>
-          </CartItem>
+          <CartItem key={index} cartItem={item}></CartItem>
         ))
       ) : (
         <p>Your cart is empty</p>
       )}
-
-      <button type="button">2010-11 kupasi</button>
-    </PayloadContainer>
+      <div className={styles.buyContent}>
+        <button
+          className={styles.buyButton}
+          type="button"
+          onClick={addProductToCart}
+        >
+          {cartTotal}
+        </button>
+      </div>
+    </div>
   )
 }
 

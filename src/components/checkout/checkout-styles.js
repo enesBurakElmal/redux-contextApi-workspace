@@ -9,4 +9,6 @@ export const PayloadContainer = styled.div`
   border: 8px solid #1ea4ce;
   border-radius: 2px;
   margin-left: auto;
+  overflow-x: hidden;
+  overwlor-y: scroll;
 `
