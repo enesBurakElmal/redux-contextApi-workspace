@@ -1,5 +1,4 @@
 import React from 'react'
-import './App.css'
 
 import Navbar from './components/navbar/navbar-component'
 
@@ -10,46 +9,32 @@ import TagsComponent from './components/tags-component/tags-component'
 import EmployeesIndex from './components/display-products/display-products.component'
 import PayloadComponent from './components/checkout/checkout.component'
 
-import {
-  AppContainer,
-  LeftColumn,
-  MiddleColumn,
-  RightColumn,
-  ColumnContent,
-} from './app-elements'
+import styles from './app.module.scss'
 
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { price: 0 }
-    this.handlePriceChange = this.handlePriceChange.bind(this)
-  }
-
-  // const dispatch = useDispatch()
-  // const todos = useSelector((state) => state.todos)
-
-  handlePriceChange = (event) => {
-    this.setState({ price: this.props.price })
+    this.state = {}
   }
 
   render() {
     return (
-      <div>
+      <>
         <Navbar />
-        <AppContainer>
-          <LeftColumn>
+        <div className={styles.appContainer}>
+          <div className={styles.leftColumn}>
             <SortingComponent />
             <BrandsComponent />
             <TagsComponent />
-          </LeftColumn>
-          <MiddleColumn>
+          </div>
+          <div className={styles.middleColumn}>
             <EmployeesIndex />
-          </MiddleColumn>
-          <RightColumn>
+          </div>
+          <div className={styles.rightColumn}>
             <PayloadComponent cartItem={this.props.cartItem} />
-          </RightColumn>
-        </AppContainer>
-      </div>
+          </div>
+        </div>
+      </>
     )
   }
 }

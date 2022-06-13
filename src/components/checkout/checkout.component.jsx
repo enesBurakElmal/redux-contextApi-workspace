@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
 
-import { PayloadContainer } from './checkout-styles'
 import styles from './checkout-component.module.scss'
 
 import { CartContext } from '../../contexts/cart-item.context'
@@ -8,13 +7,7 @@ import { CartContext } from '../../contexts/cart-item.context'
 import CartItem from '../cart-item/cart-item.component'
 
 const PayloadComponent = (payload) => {
-  const {
-    cartItems,
-    cartTotal,
-    addItemToCart,
-    removeItemToCart,
-    clearItemFromCart,
-  } = useContext(CartContext)
+  const { cartItems, cartTotal, addItemToCart } = useContext(CartContext)
 
   const addProductToCart = () => addItemToCart(payload)
 

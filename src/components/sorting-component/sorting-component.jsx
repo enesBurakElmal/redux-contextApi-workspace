@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 
 import { CartContext } from '../../contexts/cart-item.context'
 
-import { LeftContent, RadioContent } from './sorting-elements'
+import styles from './sorting-component.module.scss'
 
 const SortingComponent = ({ test }) => {
   const [favorite, setFavorite] = React.useState('lowToHigh')
@@ -27,10 +27,10 @@ const SortingComponent = ({ test }) => {
     setFavorite('oldToNew')
   }
 
-  const RadioButton = ({ label, value, onChange, onClick }) => {
+  const RadioButton = ({ label, value, onChange }) => {
     const filteer = () => filteredTags()
     return (
-      <RadioContent>
+      <div className={styles.radioContent}>
         <label>
           <input
             type="radio"
@@ -40,14 +40,14 @@ const SortingComponent = ({ test }) => {
           />
           {label}
         </label>
-      </RadioContent>
+      </div>
     )
   }
 
   return (
     <div>
       <h4> Sorting</h4>{' '}
-      <LeftContent>
+      <div className={styles.leftContent}>
         <RadioButton
           label="Price low to high"
           value={favorite === 'lowToHigh'}
@@ -70,7 +70,7 @@ const SortingComponent = ({ test }) => {
           onChange={handleOldToNew}
         />
         {/* <RadioButton label="Old to new" value={value} onChange={handleChange} /> */}
-      </LeftContent>
+      </div>
     </div>
   )
 }

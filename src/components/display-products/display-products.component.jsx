@@ -4,7 +4,7 @@ import axios from 'axios'
 
 import { CartContext } from '../../contexts/cart-item.context'
 
-import './test-style.css'
+import styles from './display-products.module.scss'
 
 export const displayProducts = (products, setProducts, setPageCount, page) => {
   const startIndex = (page - 1) * 16
@@ -14,12 +14,8 @@ export const displayProducts = (products, setProducts, setPageCount, page) => {
   setPageCount(Math.ceil(products.length / 16))
 }
 
-const EmployeesIndex = ({ cartItem }) => {
-  // const { name, imageUrl, price, quantity } = cartItem //bunlarin cekilmesi gerek
-  // const { name, price } = cartItem
-
-  const { products, setProducts, addItemToCart, filteredTags } =
-    useContext(CartContext)
+const EmployeesIndex = () => {
+  const { addItemToCart } = useContext(CartContext)
   const [paginationItems, setPaginationItems] = useState([])
   const [pageCount, setPageCount] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
@@ -35,10 +31,6 @@ const EmployeesIndex = ({ cartItem }) => {
       })
   }, [currentPage])
 
-  // useEffect(() => {
-  //   displayProducts(products, setPaginationItems, setPageCount, currentPage)
-  // }, [currentPage])
-
   const handlePageClick = (data) => {
     const selectedPage = data.selected + 1
     setCurrentPage(selectedPage)
@@ -46,18 +38,18 @@ const EmployeesIndex = ({ cartItem }) => {
 
   return (
     <div>
-      <div className="display-products">
+      <div className={styles.displayProducts}>
         {paginationItems.map((cartItem, index) => {
           const addProductToCart = () => addItemToCart(cartItem)
 
           return (
-            <div className="product-card" key={index}>
-              <div className="img-div" />
+            <div className={styles.productCard} key={index}>
+              <div className={styles.imgDiv} />
               <div>
-                <p className="item-price">{cartItem.price}</p>
+                <p className={styles.itemPrice}>{cartItem.price}</p>
                 <h4>{cartItem.name}</h4>
               </div>
-              <button className="buy-button" onClick={addProductToCart}>
+              <button className={styles.buyButton} onClick={addProductToCart}>
                 Add to Cart
               </button>
             </div>
@@ -73,13 +65,13 @@ const EmployeesIndex = ({ cartItem }) => {
         previousLabel={'Previous'}
         nextLabel={'Next'}
         breakLabel={'...'}
-        subContainerClassName={'pages pagination'}
-        activeClassName={'navigationActive'}
-        containerClassName={'navigationButtons'}
-        previousLinkClassName={'previousButton'}
-        nextLinkClassName={'nextButton'}
-        disabledClassName={'navigationDisabled'}
-        activeLinkClassName={'navigationActive'}
+        subContainerClassName={styles.pagesPagination}
+        activeClassName={styles.navigationActive}
+        containerClassName={styles.navigationButtons}
+        previousLinkClassName={styles.previousButton}
+        nextLinkClassName={styles.nextButton}
+        disabledClassName={styles.navigationDisabled}
+        activeLinkClassName={styles.navigationActive}
       />
     </div>
   )

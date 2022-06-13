@@ -1,0 +1,34 @@
+.appContainer {
+  max-width: 1440px;
+  width: 100%;
+  overflow: hidden;
+  // align-items: center;
+  // justify-content: center;
+  display: flex;
+  margin: auto;
+  margin-top: 76.64px;
+
+  .leftColumn {
+    width: 100%;
+    height: 100%;
+    //   display: flex;
+    flex-direction: column;
+    //   align-items: start;
+    //   justify-content: start;
+    padding: 10px;
+  }
+  .middleColumn {
+    width: 100%;
+    height: 100%;
+    //   display: flex;
+    flex-direction: column;
+    background-color: white;
+  }
+  .rightColumn {
+    width: 100%;
+    height: 100%;
+    // display: flex;
+
+    // flex-direction: column;
+  }
+}

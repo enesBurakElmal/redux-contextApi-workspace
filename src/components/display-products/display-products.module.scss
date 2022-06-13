@@ -1,0 +1,97 @@
+.displayProducts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  grid-column-gap: 10px;
+  /* grid-row-gap: 10px; */
+  /* margin: auto; */
+  max-width: 608px;
+  width: 100%;
+  /* height: 1008px; */
+  padding: 0 20px;
+  .productCard {
+    background-color: #fff;
+    margin: 0 0 20px;
+    padding: 20px;
+    max-width: 225px;
+    width: 100%;
+    .imgDiv {
+      background-color: #c4c4c4 !important;
+      max-width: 92px;
+      width: 100%;
+      height: 92px;
+      max-height: 100%;
+      margin: auto;
+    }
+    .itemPrice {
+      color: #1ea4ce;
+      font-weight: bold;
+    }
+    .cardBuyButton {
+      max-width: 100%;
+      background-color: rgb(152, 192, 217);
+      border: none;
+      color: white;
+      padding: 5px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      /* width: 90%; */
+    }
+  }
+}
+
+.cardBuyButton:hover {
+  background-color: rgb(61, 90, 128);
+  color: white;
+}
+
+.navigationButtons {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 30px;
+  margin-left: auto;
+  text-decoration: none;
+}
+
+.navigationButtons a {
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
+  color: red;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.navigationButtons a:hover {
+  color: white;
+  background-color: red;
+}
+
+.navigationActive a {
+  color: white;
+  background-color: red;
+}
+
+.navigationDisabled a {
+  color: rgb(127, 63, 63);
+  /* background-color: grey; */
+}
+
+.buyButton {
+  max-width: 124px;
+  width: 100%;
+  background-color: #1ea4ce;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  color: white;
+  border: none;
+}
