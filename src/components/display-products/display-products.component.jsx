@@ -37,7 +37,7 @@ const EmployeesIndex = () => {
   }
 
   return (
-    <div>
+    <>
       <div className={styles.displayProducts}>
         {paginationItems.map((cartItem, index) => {
           const addProductToCart = () => addItemToCart(cartItem)
@@ -55,25 +55,25 @@ const EmployeesIndex = () => {
             </div>
           )
         })}
-      </div>
 
-      <ReactPaginate
-        pageCount={pageCount}
-        marginPagesDisplayed={4}
-        pageRangeDisplayed={4}
-        onPageChange={handlePageClick}
-        previousLabel={'Previous'}
-        nextLabel={'Next'}
-        breakLabel={'...'}
-        subContainerClassName={styles.pagesPagination}
-        activeClassName={styles.navigationActive}
-        containerClassName={styles.navigationButtons}
-        previousLinkClassName={styles.previousButton}
-        nextLinkClassName={styles.nextButton}
-        disabledClassName={styles.navigationDisabled}
-        activeLinkClassName={styles.navigationActive}
-      />
-    </div>
+        <ReactPaginate
+          pageCount={pageCount}
+          marginPagesDisplayed={4}
+          pageRangeDisplayed={4}
+          onPageChange={handlePageClick}
+          previousLabel={'Previous'}
+          nextLabel={'Next'}
+          breakLabel={'...'}
+          subContainerClassName={styles.pagesPagination}
+          activeClassName={styles.navigationActive}
+          containerClassName={styles.navigationButtons}
+          previousLinkClassName={styles.previousButton}
+          nextLinkClassName={styles.nextButton}
+          disabledClassName={styles.navigationDisabled}
+          activeLinkClassName={styles.navigationActive}
+        />
+      </div>
+    </>
   )
 }
 

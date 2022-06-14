@@ -13,21 +13,23 @@ const PayloadComponent = (payload) => {
 
   return (
     <div className={styles.payloadContainer}>
-      {cartItems.length ? (
-        cartItems.map((item, index) => (
-          <CartItem key={index} cartItem={item}></CartItem>
-        ))
-      ) : (
-        <p>Your cart is empty</p>
-      )}
-      <div className={styles.buyContent}>
-        <button
-          className={styles.buyButton}
-          type="button"
-          onClick={addProductToCart}
-        >
-          {cartTotal}
-        </button>
+      <div>
+        {cartItems.length ? (
+          cartItems.map((item, index) => (
+            <CartItem key={index} cartItem={item}></CartItem>
+          ))
+        ) : (
+          <p>Your cart is empty</p>
+        )}
+        <div className={styles.buyContent}>
+          <button
+            className={styles.buyButton}
+            type="button"
+            onClick={addProductToCart}
+          >
+            {cartTotal}
+          </button>
+        </div>
       </div>
     </div>
   )

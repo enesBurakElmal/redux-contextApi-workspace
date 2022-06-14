@@ -7,7 +7,6 @@ export const LeftContent = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  //   border: 1px solid;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   margin-bottom: 40px;
@@ -19,6 +18,7 @@ export const LeftContent = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
   text-align: justify;
+  flex-wrap: wrap;
   ::-webkit-scrollbar {
     width: 4px;
     height: 28px !important;
@@ -32,4 +32,5 @@ export const LeftContent = styled.div`
 `
 export const RadioContent = styled.div`
   padding: 5px;
+  flex-wrap: wrap;
 `

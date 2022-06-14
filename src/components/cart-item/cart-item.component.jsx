@@ -6,13 +6,7 @@ import styles from './cart-item-component.module.scss'
 
 const CartItem = ({ cartItem }) => {
   const { name, quantity, price } = cartItem
-  const {
-    cartItems,
-    cartTotal,
-    addItemToCart,
-    removeItemToCart,
-    clearItemFromCart,
-  } = useContext(CartContext)
+  const { addItemToCart, removeItemToCart } = useContext(CartContext)
 
   const addProductToCart = () => addItemToCart(cartItem)
   const removeProductToCart = () => removeItemToCart(cartItem)
@@ -32,9 +26,14 @@ const CartItem = ({ cartItem }) => {
             -
           </button>
           <p>{quantity}</p>
-          <button className={styles.cartItemButton} onClick={addProductToCart}>
-            +
-          </button>
+          <div>
+            <button
+              className={styles.cartItemButton}
+              onClick={addProductToCart}
+            >
+              +
+            </button>
+          </div>
         </div>
       </div>
     </div>

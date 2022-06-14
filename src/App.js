@@ -22,6 +22,7 @@ class App extends React.Component {
       <>
         <Navbar />
         <div className={styles.appContainer}>
+          {/* <div className={styles.testDiv}> */}
           <div className={styles.leftColumn}>
             <SortingComponent />
             <BrandsComponent />
@@ -34,6 +35,7 @@ class App extends React.Component {
             <PayloadComponent cartItem={this.props.cartItem} />
           </div>
         </div>
+        {/* </div> */}
       </>
     )
   }

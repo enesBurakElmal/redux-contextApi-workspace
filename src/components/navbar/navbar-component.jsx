@@ -13,7 +13,10 @@ const Navbar = () => {
   return (
     <nav className={styles.navbarTag}>
       <div className={styles.navbarContainer}>
-        <img src={Logo} alt="logo" className={styles.navbarLogo} />
+        <div className={styles.nullDiv} />
+        <div className={styles.logoDiv}>
+          <img src={Logo} alt="logo" className={styles.navbarLogo} />
+        </div>
         <div className={styles.navbarPayload}>
           <p className={styles.payloadText} value={cartTotal}>
             &#174; &#8378; {cartTotal}
