@@ -15,21 +15,25 @@ export const displayProducts = (products, setProducts, setPageCount, page) => {
 }
 
 const EmployeesIndex = () => {
-  const { addItemToCart } = useContext(CartContext)
+  const { addItemToCart, products, setProducts } = useContext(CartContext)
   const [paginationItems, setPaginationItems] = useState([])
   const [pageCount, setPageCount] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {
-    axios
-      .get('http://localhost:3004/items')
-      .then((res) => {
-        displayProducts(res.data, setPaginationItems, setPageCount, currentPage)
-      })
-      .catch((err) => {
-        console.log(err, 'err with index component')
-      })
-  }, [currentPage])
+    displayProducts(products, setPaginationItems, setPageCount, currentPage)
+  }, [products, currentPage])
+
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:3004/items')
+  //     .then((res) => {
+  //       displayProducts(res.data, setPaginationItems, setPageCount, currentPage)
+  //     })
+  //     .catch((err) => {
+  //       console.log(err, 'err with index component')
+  //     })
+  // }, [currentPage])
 
   const handlePageClick = (data) => {
     const selectedPage = data.selected + 1

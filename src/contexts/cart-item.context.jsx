@@ -3,20 +3,18 @@ import axios from 'axios'
 
 const apiUrl = 'http://localhost:3004/items'
 
-// const displayProducts = (products, setProducts, setPageCount, page) => {
-//   const startIndex = (page - 1) * 8
-//   const endIndex = page * 8
-//   const productsToDisplay = products.slice(startIndex, endIndex)
-//   setProducts(productsToDisplay)
-//   setPageCount(Math.ceil(products.length / 8))
-// }
+const displayProducts = (products, setProducts, setPageCount, page) => {
+  const startIndex = (page - 1) * 16
+  const endIndex = page * 16
+  const productsToDisplay = products.slice(startIndex, endIndex)
+  setProducts(productsToDisplay)
+  setPageCount(Math.ceil(products.length / 16))
+}
 
 const filtercartItemsWithTags = (cartItems, tags) => {
-  const itemTags = cartItems.map((cartItem) => cartItem.tags)
-  const filteredTags = itemTags.filter((itemTag) => {
-    return itemTag.some((tag) => tags.includes(tag))
+  return cartItems.filter((cartItem) => {
+    return cartItem.tags.some((tag) => tags.includes(tag))
   })
-  return filteredTags
 }
 
 const addCartItem = (cartItems, productToAdd) => {
@@ -69,8 +67,8 @@ export const CartContext = createContext({
   filteredTags: () => {},
   cartCount: 0,
   cartTotal: 0,
-  // setProducts: () => {},
-  // products: [],
+  products: [],
+  setProducts: () => {},
   // pageCount: 0,
   // currentPage: 1,
   // setPageCount: () => {},
@@ -94,6 +92,17 @@ export const CartProvider = ({ children }) => {
     setCartTotal(newCartTotal)
   }, [cartItems])
 
+  useEffect(() => {
+    axios // get all products
+      .get(apiUrl)
+      .then((response) => {
+        setProducts(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }, [])
+
   const addItemToCart = (productToAdd) => {
     setCartItems(addCartItem(cartItems, productToAdd))
   }
@@ -107,9 +116,7 @@ export const CartProvider = ({ children }) => {
   }
 
   const filteredTags = (tags) => {
-    const filteredCartItems = filtercartItemsWithTags(cartItems, tags)
-    setCartItems(filteredCartItems)
-    console.log(filteredCartItems)
+    setProducts(filtercartItemsWithTags(products, tags))
   }
 
   const value = {
@@ -122,8 +129,8 @@ export const CartProvider = ({ children }) => {
     cartItems,
     cartCount,
     cartTotal,
-    // setProducts,
-    // products,
+    setProducts,
+    products,
     // pageCount,
     // currentPage,
     // setCurrentPage,

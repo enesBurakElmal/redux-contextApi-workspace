@@ -2,7 +2,6 @@ body {
   margin: 0;
   /* background-color: #e5e5e5; */
   text-overflow: ellipsis;
-  box-sizing: border-box;
 }
 body::-webkit-scrollbar-track {
   box-shadow: inset 0 0 15x rgba(0, 0, 0, 15);

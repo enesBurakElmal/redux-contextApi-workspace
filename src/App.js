@@ -14,12 +14,18 @@ import styles from './app.module.scss'
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      onProducts: [],
+      searchfield: '',
+    }
   }
+
+  // componentDidMount() {
+  //   fetch('http://localhost:3004/items')
 
   render() {
     return (
-      <>
+      <div style={{ width: '100%', height: '100%' }}>
         <Navbar />
         <div className={styles.appContainer}>
           {/* <div className={styles.testDiv}> */}
@@ -36,7 +42,7 @@ class App extends React.Component {
           </div>
         </div>
         {/* </div> */}
-      </>
+      </div>
     )
   }
 }

@@ -4,9 +4,9 @@ import { CartContext } from '../../contexts/cart-item.context'
 
 import styles from './sorting-component.module.scss'
 
-const SortingComponent = ({ test }) => {
+const SortingComponent = () => {
   const [favorite, setFavorite] = React.useState('lowToHigh')
-  const { filteredTags } = useContext(CartContext)
+  const { filteredTags, products, setProducts } = useContext(CartContext)
 
   // const addProductToCart = () => addItemToCart(cartItem)
   const filteer = () => filteredTags(test)
