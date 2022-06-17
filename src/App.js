@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component, Fragment } from 'react'
 
 import Navbar from './components/navbar/navbar-component'
 
@@ -11,6 +11,8 @@ import PayloadComponent from './components/checkout/checkout.component'
 
 import styles from './app.module.scss'
 
+import { CartProvider } from './contexts/cart-item.context'
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -20,10 +22,8 @@ class App extends React.Component {
     }
   }
 
-  // componentDidMount() {
-  //   fetch('http://localhost:3004/items')
-
   render() {
+    const { onProducts, searchfield } = this.state
     return (
       <div style={{ width: '100%', height: '100%' }}>
         <Navbar />

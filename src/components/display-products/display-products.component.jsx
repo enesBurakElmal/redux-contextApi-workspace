@@ -15,8 +15,9 @@ export const displayProducts = (products, setProducts, setPageCount, page) => {
 }
 
 const EmployeesIndex = () => {
-  const { addItemToCart, products, setProducts } = useContext(CartContext)
+  const { addItemToCart, products } = useContext(CartContext)
   const [paginationItems, setPaginationItems] = useState([])
+  const [searchfield, setSearchfield] = useState('')
   const [pageCount, setPageCount] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
 
@@ -24,21 +25,18 @@ const EmployeesIndex = () => {
     displayProducts(products, setPaginationItems, setPageCount, currentPage)
   }, [products, currentPage])
 
-  // useEffect(() => {
-  //   axios
-  //     .get('http://localhost:3004/items')
-  //     .then((res) => {
-  //       displayProducts(res.data, setPaginationItems, setPageCount, currentPage)
-  //     })
-  //     .catch((err) => {
-  //       console.log(err, 'err with index component')
-  //     })
-  // }, [currentPage])
-
   const handlePageClick = (data) => {
     const selectedPage = data.selected + 1
     setCurrentPage(selectedPage)
   }
+
+  const onSearchChange = (e) => {
+    setSearchfield(e.target.value)
+  }
+
+  const filteredPaginationItems = paginationItems.filter((item) => {
+    return item.name.toLowerCase().includes(searchfield.toLowerCase())
+  })
 
   return (
     <>
@@ -49,8 +47,8 @@ const EmployeesIndex = () => {
           return (
             <div className={styles.productCard} key={index}>
               <div className={styles.imgDiv} />
-              <div>
-                <p className={styles.itemPrice}>{cartItem.price}</p>
+              <p className={styles.itemPrice}>{cartItem.price}</p>
+              <div className={styles.textStar}>
                 <h4>{cartItem.name}</h4>
               </div>
               <button className={styles.buyButton} onClick={addProductToCart}>
@@ -59,24 +57,24 @@ const EmployeesIndex = () => {
             </div>
           )
         })}
-
-        <ReactPaginate
-          pageCount={pageCount}
-          marginPagesDisplayed={4}
-          pageRangeDisplayed={4}
-          onPageChange={handlePageClick}
-          previousLabel={'Previous'}
-          nextLabel={'Next'}
-          breakLabel={'...'}
-          subContainerClassName={styles.pagesPagination}
-          activeClassName={styles.navigationActive}
-          containerClassName={styles.navigationButtons}
-          previousLinkClassName={styles.previousButton}
-          nextLinkClassName={styles.nextButton}
-          disabledClassName={styles.navigationDisabled}
-          activeLinkClassName={styles.navigationActive}
-        />
       </div>
+
+      <ReactPaginate
+        pageCount={pageCount}
+        marginPagesDisplayed={4}
+        pageRangeDisplayed={4}
+        onPageChange={handlePageClick}
+        previousLabel={'Previous'}
+        nextLabel={'Next'}
+        breakLabel={'...'}
+        containerClassName={styles.navigationButtons}
+        subContainerClassName={styles.pagesPagination}
+        activeClassName={styles.navigationActive}
+        previousLinkClassName={styles.previousButton}
+        nextLinkClassName={styles.nextButton}
+        disabledClassName={styles.navigationDisabled}
+        activeLinkClassName={styles.navigationActive}
+      />
     </>
   )
 }

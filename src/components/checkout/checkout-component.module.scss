@@ -7,14 +7,11 @@
   padding: 10px;
   background-color: #ffffff;
   border: 8px solid #1ea4ce;
-  margin: auto;
+  margin-left: auto;
   overflow-y: scroll;
   overflow-x: hidden;
 
   .buyContent {
-    // display: flex;
-    // flex-direction: column;
-    // gap: 40px;
     text-align: end;
     margin-left: auto;
     white-space: nowrap;
@@ -32,7 +29,6 @@
       font-size: 12px;
       font-weight: bold;
       cursor: pointer;
-      // margin-left: auto;
       text-overflow: ellipsis;
       display: inline-block;
     }
