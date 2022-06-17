@@ -15,28 +15,20 @@ export const displayProducts = (products, setProducts, setPageCount, page) => {
 }
 
 const EmployeesIndex = () => {
-  const { addItemToCart, products } = useContext(CartContext)
-  const [paginationItems, setPaginationItems] = useState([])
-  const [searchfield, setSearchfield] = useState('')
+  const { addItemToCart, products, setPaginationItems, paginationItems } =
+    useContext(CartContext)
+  // const [paginationItems, setPaginationItems] = useState([])
   const [pageCount, setPageCount] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {
     displayProducts(products, setPaginationItems, setPageCount, currentPage)
-  }, [products, currentPage])
+  }, [products, setPaginationItems, setPageCount, currentPage])
 
   const handlePageClick = (data) => {
     const selectedPage = data.selected + 1
     setCurrentPage(selectedPage)
   }
-
-  const onSearchChange = (e) => {
-    setSearchfield(e.target.value)
-  }
-
-  const filteredPaginationItems = paginationItems.filter((item) => {
-    return item.name.toLowerCase().includes(searchfield.toLowerCase())
-  })
 
   return (
     <>

@@ -11,10 +11,13 @@ const displayProducts = (products, setProducts, setPageCount, page) => {
   setPageCount(Math.ceil(products.length / 16))
 }
 
-const filtercartItemsWithTags = (cartItems, tags) => {
-  return cartItems.filter((cartItem) => {
-    return cartItem.tags.some((tag) => tags.includes(tag))
+const filtercartItemsWithTags = (products, searchfield) => {
+  const filteredProducts = products.filter((item) => {
+    return item.name.toLowerCase().includes(searchfield.toLowerCase())
   })
+
+  console.log(filteredProducts, 'current products after search')
+  return filteredProducts
 }
 
 const addCartItem = (cartItems, productToAdd) => {
@@ -69,6 +72,8 @@ export const CartContext = createContext({
   cartTotal: 0,
   products: [],
   setProducts: () => {},
+  setPaginationItems: () => {},
+  paginationItems: [],
   // pageCount: 0,
   // currentPage: 1,
   // setPageCount: () => {},
@@ -81,6 +86,7 @@ export const CartProvider = ({ children }) => {
   const [cartCount, setCartCount] = useState(0)
   const [cartTotal, setCartTotal] = useState(0)
   const [products, setProducts] = useState([])
+  const [paginationItems, setPaginationItems] = useState([])
   const [pageCount, setPageCount] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
 
@@ -93,7 +99,7 @@ export const CartProvider = ({ children }) => {
   }, [cartItems])
 
   useEffect(() => {
-    axios // get all products
+    axios // fetch all products
       .get(apiUrl)
       .then((response) => {
         setProducts(response.data)
@@ -101,6 +107,10 @@ export const CartProvider = ({ children }) => {
       .catch((error) => {
         console.log(error)
       })
+  }, [])
+
+  useEffect(() => {
+    displayProducts(products, setProducts, setPageCount, currentPage)
   }, [])
 
   const addItemToCart = (productToAdd) => {
@@ -115,8 +125,8 @@ export const CartProvider = ({ children }) => {
     setCartItems(clearCartItem(cartItems, cartItemToClear))
   }
 
-  const filteredTags = (tags) => {
-    setProducts(filtercartItemsWithTags(products, tags))
+  const filteredTags = (onFilter) => {
+    setProducts(filtercartItemsWithTags(products, onFilter))
   }
 
   const value = {
@@ -130,6 +140,8 @@ export const CartProvider = ({ children }) => {
     cartCount,
     cartTotal,
     setProducts,
+    setPaginationItems,
+    paginationItems,
     products,
     // pageCount,
     // currentPage,

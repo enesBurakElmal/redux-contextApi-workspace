@@ -8,12 +8,12 @@ import styles from './brands-component.module.scss'
 
 import SearchBox from '../search-box/search-box.component'
 
-const BrandsComponent = () => {
-  const { productSearchFilter } = useContext(CartContext)
+const BrandsComponent = (e) => {
+  const { filteredTags } = useContext(CartContext)
 
   const handleSearch = (e) => {
     const searchValue = e.target.value
-    productSearchFilter(searchValue)
+    filteredTags(searchValue)
   }
 
   return (
