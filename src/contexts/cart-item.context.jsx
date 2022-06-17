@@ -11,6 +11,11 @@ const displayProducts = (products, setProducts, setPageCount, page) => {
   setPageCount(Math.ceil(products.length / 16))
 }
 
+const lowToHighFilter = (products) => {
+  const sortedProducts = products.sort((a, b) => a.price - b.price)
+  return sortedProducts
+}
+
 const filtercartItemsWithTags = (products, searchfield) => {
   const filteredProducts = products.filter((item) => {
     return item.name.toLowerCase().includes(searchfield.toLowerCase())
@@ -74,10 +79,13 @@ export const CartContext = createContext({
   setProducts: () => {},
   setPaginationItems: () => {},
   paginationItems: [],
-  // pageCount: 0,
-  // currentPage: 1,
-  // setPageCount: () => {},
-  // setCurrentPage: () => {},
+  lowToHigh: () => {},
+  pageCount: 0,
+  currentPage: 1,
+  setPageCount: () => {},
+  setCurrentPage: () => {},
+  displayProducts: () => {},
+  lowToHighFilter: () => {},
 })
 
 export const CartProvider = ({ children }) => {
@@ -109,9 +117,42 @@ export const CartProvider = ({ children }) => {
       })
   }, [])
 
-  useEffect(() => {
-    displayProducts(products, setProducts, setPageCount, currentPage)
-  }, [])
+  // useEffect(() => {
+  //   displayProducts(products, setProducts, setPageCount, currentPage)
+  // }, [])
+
+  // useEffect(() => {
+  //   setProducts(lowToHighFilter(products))
+  // }, [products])
+
+  // useEffect(() => {
+  //   displayProducts(
+  //     lowToHighFilter(products),
+  //     setProducts,
+  //     setPageCount,
+  //     currentPage
+  //   )
+  // }, [])
+
+  const filteredTags = (onFilter) => {
+    setProducts(filtercartItemsWithTags(products, onFilter))
+  }
+
+  const lowToHigh = (productLowToHigh) => {
+    const sortedProducts = lowToHighFilter(products)
+    // displayProducts(productLowToHigh, setProducts, setPageCount, currentPage)
+    // setProducts(lowToHighFilter(products, productLowToHigh))
+    // setProducts(lowToHighFilter(products, productLowToHigh))
+    setProducts(sortedProducts, productLowToHigh)
+  }
+
+  // displayProducts(
+  //   lowToHighFilter(products, productLowToHigh),
+  //   setProducts,
+  //   setPageCount,
+  //   currentPage
+  // )
+  // }
 
   const addItemToCart = (productToAdd) => {
     setCartItems(addCartItem(cartItems, productToAdd))
@@ -123,10 +164,6 @@ export const CartProvider = ({ children }) => {
 
   const clearItemFromCart = (cartItemToClear) => {
     setCartItems(clearCartItem(cartItems, cartItemToClear))
-  }
-
-  const filteredTags = (onFilter) => {
-    setProducts(filtercartItemsWithTags(products, onFilter))
   }
 
   const value = {
@@ -143,10 +180,13 @@ export const CartProvider = ({ children }) => {
     setPaginationItems,
     paginationItems,
     products,
-    // pageCount,
-    // currentPage,
-    // setCurrentPage,
-    // setPageCount,
+    lowToHigh,
+    pageCount,
+    currentPage,
+    setCurrentPage,
+    setPageCount,
+    displayProducts,
+    lowToHighFilter,
   }
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>

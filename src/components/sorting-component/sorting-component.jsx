@@ -1,17 +1,25 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import { CartContext } from '../../contexts/cart-item.context'
 
 import styles from './sorting-component.module.scss'
 
-const SortingComponent = () => {
-  const [favorite, setFavorite] = React.useState('lowToHigh')
-  const { filteredTags, products, setProducts } = useContext(CartContext)
+export const displayProducts = (products, setProducts, setPageCount, page) => {
+  const startIndex = (page - 1) * 16
+  const endIndex = page * 16
+  const productsToDisplay = products.slice(startIndex, endIndex)
+  setProducts(productsToDisplay)
+  setPageCount(Math.ceil(products.length / 16))
+}
+
+const SortingComponent = (sorting) => {
+  const [favorite, setFavorite] = useState('')
+  const { lowToHigh } = useContext(CartContext)
 
   // const addProductToCart = () => addItemToCart(cartItem)
-  const filteer = () => filteredTags(test)
 
   const handleLowToHigh = () => {
+    lowToHigh(sorting)
     setFavorite('lowToHigh')
   }
 
@@ -28,16 +36,10 @@ const SortingComponent = () => {
   }
 
   const RadioButton = ({ label, value, onChange }) => {
-    const filteer = () => filteredTags()
     return (
       <div className={styles.radioContent}>
         <label>
-          <input
-            type="radio"
-            checked={value}
-            onChange={onChange}
-            onClick={filteer}
-          />
+          <input type="radio" checked={value} onChange={onChange} />
           {label}
         </label>
       </div>
@@ -52,7 +54,6 @@ const SortingComponent = () => {
           label="Price low to high"
           value={favorite === 'lowToHigh'}
           onChange={handleLowToHigh}
-          onClick={filteer}
         />
         <RadioButton
           label="Price high to low"

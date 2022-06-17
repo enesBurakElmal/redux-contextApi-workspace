@@ -16,21 +16,17 @@ import { CartProvider } from './contexts/cart-item.context'
 class App extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      onProducts: [],
-      searchfield: '',
-    }
+    this.state = {}
   }
 
   render() {
-    const { onProducts, searchfield } = this.state
     return (
-      <div style={{ width: '100%', height: '100%' }}>
+      <>
         <Navbar />
         <div className={styles.appContainer}>
           {/* <div className={styles.testDiv}> */}
           <div className={styles.leftColumn}>
-            <SortingComponent />
+            <SortingComponent onChange={this.onChange} />
             <BrandsComponent />
             <TagsComponent />
           </div>
@@ -42,7 +38,7 @@ class App extends React.Component {
           </div>
         </div>
         {/* </div> */}
-      </div>
+      </>
     )
   }
 }
