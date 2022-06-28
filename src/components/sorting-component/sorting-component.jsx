@@ -4,19 +4,17 @@ import { CartContext } from '../../contexts/cart-item.context'
 
 import styles from './sorting-component.module.scss'
 
-export const displayProducts = (products, setProducts, setPageCount, page) => {
-  const startIndex = (page - 1) * 16
-  const endIndex = page * 16
-  const productsToDisplay = products.slice(startIndex, endIndex)
-  setProducts(productsToDisplay)
-  setPageCount(Math.ceil(products.length / 16))
-}
+// export const displayProducts = (products, setProducts, setPageCount, page) => {
+//   const startIndex = (page - 1) * 16
+//   const endIndex = page * 16
+//   const productsToDisplay = products.slice(startIndex, endIndex)
+//   setProducts(productsToDisplay)
+//   setPageCount(Math.ceil(products.length / 16))
+// }
 
 const SortingComponent = (sorting) => {
   const [favorite, setFavorite] = useState('')
-  const { lowToHigh } = useContext(CartContext)
-
-  // const addProductToCart = () => addItemToCart(cartItem)
+  const { lowToHigh, highToLow } = useContext(CartContext)
 
   const handleLowToHigh = () => {
     lowToHigh(sorting)
@@ -24,10 +22,12 @@ const SortingComponent = (sorting) => {
   }
 
   const handleHighToLow = () => {
+    highToLow(sorting)
     setFavorite('highToLow')
   }
 
   const handleNewToOld = () => {
+    // tagFilter(sorting)
     setFavorite('newToOld')
   }
 

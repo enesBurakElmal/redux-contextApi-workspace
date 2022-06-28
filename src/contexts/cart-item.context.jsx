@@ -3,28 +3,6 @@ import axios from 'axios'
 
 const apiUrl = 'http://localhost:3004/items'
 
-const displayProducts = (products, setProducts, setPageCount, page) => {
-  const startIndex = (page - 1) * 16
-  const endIndex = page * 16
-  const productsToDisplay = products.slice(startIndex, endIndex)
-  setProducts(productsToDisplay)
-  setPageCount(Math.ceil(products.length / 16))
-}
-
-const lowToHighFilter = (products) => {
-  const sortedProducts = products.sort((a, b) => a.price - b.price)
-  return sortedProducts
-}
-
-const filtercartItemsWithTags = (products, searchfield) => {
-  const filteredProducts = products.filter((item) => {
-    return item.name.toLowerCase().includes(searchfield.toLowerCase())
-  })
-
-  console.log(filteredProducts, 'current products after search')
-  return filteredProducts
-}
-
 const addCartItem = (cartItems, productToAdd) => {
   const existingCartItem = cartItems.find(
     (cartItem) => cartItem.added === productToAdd.added
@@ -62,8 +40,41 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
   )
 }
 
+const displayProducts = (products, setProducts, setPageCount, page) => {
+  const startIndex = (page - 1) * 16
+  const endIndex = page * 16
+  const productsToDisplay = products.slice(startIndex, endIndex)
+  setProducts(productsToDisplay)
+  setPageCount(Math.ceil(products.length / 16))
+}
+
+const lowToHighFilter = (products) => {
+  const sortedProducts = products.sort((a, b) => a.price - b.price)
+  return sortedProducts
+}
+
+const highToLowFilter = (products) => {
+  const sortedProducts = products.sort((a, b) => b.price - a.price)
+  return sortedProducts
+}
+
 const clearCartItem = (cartItems, cartItemToClear) =>
   cartItems.filter((cartItem) => cartItem.added !== cartItemToClear.added)
+
+const filterScript = (products, searchfield) => {
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchfield.toLowerCase())
+  )
+  return filteredProducts
+}
+
+// const filterOnTags = (products, tags) => {
+//   const filteredProductTags = products.filter((item) => {
+//     return [item.tags.includes(tags)]
+//   })
+//   console.log(filteredProductTags, 'current products after search')
+//   return filteredProductTags
+// }
 
 export const CartContext = createContext({
   isCartOpen: false,
@@ -86,15 +97,23 @@ export const CartContext = createContext({
   setCurrentPage: () => {},
   displayProducts: () => {},
   lowToHighFilter: () => {},
+  setSearchfield: () => {},
+  highToLow: () => {},
+  tagFilter: () => {},
+  setTagField: () => {},
+  productsTags: [],
 })
 
 export const CartProvider = ({ children }) => {
   const [isCartOpen, setIsCartOpen] = useState(false)
-  const [cartItems, setCartItems] = useState([])
-  const [cartCount, setCartCount] = useState(0)
-  const [cartTotal, setCartTotal] = useState(0)
   const [products, setProducts] = useState([])
   const [paginationItems, setPaginationItems] = useState([])
+  const [productsTags, setProductsTags] = useState([])
+  const [cartItems, setCartItems] = useState([])
+  const [cartCount, setCartCount] = useState(0)
+  const [searchfield, setSearchfield] = useState('')
+  const [tagField, setTagField] = useState('') //buradan devam edilecek, fonksiyonlardaki searchfieldler duzeltilecek,  tags componenti de ayni sekilde
+  const [cartTotal, setCartTotal] = useState(0)
   const [pageCount, setPageCount] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
 
@@ -107,7 +126,7 @@ export const CartProvider = ({ children }) => {
   }, [cartItems])
 
   useEffect(() => {
-    axios // fetch all products
+    axios
       .get(apiUrl)
       .then((response) => {
         setProducts(response.data)
@@ -117,42 +136,86 @@ export const CartProvider = ({ children }) => {
       })
   }, [])
 
-  // useEffect(() => {
-  //   displayProducts(products, setProducts, setPageCount, currentPage)
-  // }, [])
+  useEffect(() => {
+    setProducts(products)
+    setPaginationItems(products)
+    setPageCount(Math.ceil(products.length / 16))
+  }, [])
 
-  // useEffect(() => {
-  //   setProducts(lowToHighFilter(products))
-  // }, [products])
+  useEffect(() => {
+    const productTags = products.map((product) => product.tags)
+    const tags = productTags.flat()
+    const uniqueTags = [...new Set(tags)]
+    setProductsTags(uniqueTags)
+  }, [products])
 
-  // useEffect(() => {
-  //   displayProducts(
-  //     lowToHighFilter(products),
-  //     setProducts,
-  //     setPageCount,
-  //     currentPage
-  //   )
-  // }, [])
+  // const fetchTags = () => {
+  //   const productTags = products.map((product) => product.tags)
+  //   const tags = productTags.flat()
+  //   const uniqueTags = [...new Set(tags)]
+  //   setProductsTags(uniqueTags)
+  //   console.log(uniqueTags, 'unique tags')
+  // }
+
+  const productTags = products.map((product) => product.tags)
+  const tags = productTags.flat()
+  const uniqueTags = [...new Set(tags)]
+  // console.log(uniqueTags)
+
+  // setProductsTags(uniqueTags)
+
+  const filterOnTags = (products, tag) => {
+    const filteredProducts = products.filter((product) =>
+      product.tags.includes(tag)
+    )
+    return filteredProducts
+  }
+
+  useEffect(() => {
+    displayProducts(products, setPaginationItems, setPageCount, currentPage)
+  }, [products, setPaginationItems, setPageCount, currentPage])
+
+  useEffect(() => {
+    if (searchfield === '') {
+      setProducts(products)
+      setPageCount(Math.ceil(products / 16))
+    }
+    if (searchfield !== '') {
+      setProducts(filterScript(products, searchfield))
+      setPageCount(Math.ceil(filterScript(products, searchfield).length / 16))
+    }
+  }, [searchfield])
+
+  useEffect(() => {
+    if (tagField === '') {
+      setProducts(products)
+      setPageCount(Math.ceil(products / 16))
+    }
+    if (tagField !== '') {
+      setProducts(filterOnTags(products, tagField))
+      setPageCount(Math.ceil(filterOnTags(products, tagField).length / 16))
+    }
+  }, [])
+
+  const tagFilter = (tag) => {
+    setTagField(filterOnTags(products, tag))
+    setProducts(filterOnTags(products, tag))
+  }
 
   const filteredTags = (onFilter) => {
-    setProducts(filtercartItemsWithTags(products, onFilter))
+    setSearchfield(filterScript(products, onFilter))
+    setProducts(filterScript(products, onFilter))
   }
 
   const lowToHigh = (productLowToHigh) => {
     const sortedProducts = lowToHighFilter(products)
-    // displayProducts(productLowToHigh, setProducts, setPageCount, currentPage)
-    // setProducts(lowToHighFilter(products, productLowToHigh))
-    // setProducts(lowToHighFilter(products, productLowToHigh))
     setProducts(sortedProducts, productLowToHigh)
   }
 
-  // displayProducts(
-  //   lowToHighFilter(products, productLowToHigh),
-  //   setProducts,
-  //   setPageCount,
-  //   currentPage
-  // )
-  // }
+  const highToLow = (productHighToLow) => {
+    const sortedProducts = highToLowFilter(products)
+    setProducts(sortedProducts, productHighToLow)
+  }
 
   const addItemToCart = (productToAdd) => {
     setCartItems(addCartItem(cartItems, productToAdd))
@@ -187,6 +250,11 @@ export const CartProvider = ({ children }) => {
     setPageCount,
     displayProducts,
     lowToHighFilter,
+    setSearchfield,
+    highToLow,
+    tagFilter,
+    setTagField,
+    productsTags,
   }
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>

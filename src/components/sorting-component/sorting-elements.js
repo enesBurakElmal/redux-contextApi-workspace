@@ -5,12 +5,13 @@ export const LeftContent = styled.div`
   width: 100%;
   max-height: 274px;
   height: 100%;
-  display: flex;
+  display: inline-flex;
+  flex-wrap: wrap;
   flex-direction: column;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
     rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
   margin-bottom: 40px;
-  padding: 50px;
+  // padding: 50px;
   align-items: start;
   justify-content: start;
   text-align: start;
@@ -27,7 +28,7 @@ export const LeftContent = styled.div`
     background-color: darkgrey;
   }
   -webkit-scrollbar-track {
-    box-shadow: inset 0 0 15x rgba(0, 0, 0, 15);
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 15);
   }
 `
 export const RadioContent = styled.div`

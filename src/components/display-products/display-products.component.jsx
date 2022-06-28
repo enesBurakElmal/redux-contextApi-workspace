@@ -1,32 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import ReactPaginate from 'react-paginate'
-import axios from 'axios'
 
 import { CartContext } from '../../contexts/cart-item.context'
 
 import styles from './display-products.module.scss'
 
 const EmployeesIndex = () => {
-  const {
-    addItemToCart,
-    products,
-    setPaginationItems,
-    paginationItems,
-    pageCount,
-    setPageCount,
-    currentPage,
-    setCurrentPage,
-    displayProducts,
-    lowToHighFilter,
-  } = useContext(CartContext)
-
-  useEffect(() => {
-    displayProducts(products, setPaginationItems, setPageCount, currentPage)
-  }, [products, setPaginationItems, setPageCount, currentPage])
-
-  // useEffect(() => {
-  //   lowToHighFilter(products, setPaginationItems, setPageCount, currentPage)
-  // }, [products, setPaginationItems, setPageCount, currentPage])
+  const { addItemToCart, paginationItems, pageCount, setCurrentPage } =
+    useContext(CartContext)
 
   const handlePageClick = (data) => {
     const selectedPage = data.selected + 1
